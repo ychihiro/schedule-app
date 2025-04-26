@@ -1,0 +1,83 @@
+services:
+  frontend:
+    image: "node"
+    volumes:
+      - "./frontend:/var/www/html"
+    working_dir: "/var/www/html"
+    ports:
+      - "3000:3000"
+    command: bash -c "npm install && npm run dev"
+    networks:
+      - sail
+
+  laravel.test:
+    build:
+      context: ./backend/vendor/laravel/sail/runtimes/8.2
+      dockerfile: Dockerfile
+      args:
+        WWWGROUP: 1000
+    image: sail-8.2/app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "50080:80"
+    environment:
+      WWWUSER: 1000
+      LARAVEL_SAIL: 1
+    volumes:
+      - "./backend:/var/www/html"
+    networks:
+      - sail
+    depends_on:
+      - mysql
+      - mailpit
+
+  mysql:
+    image: "mysql/mysql-server:8.0"
+    ports:
+      - "53306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "db12345"
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: "db"
+      MYSQL_USER: "dbuser"
+      MYSQL_PASSWORD: "db12345"
+    volumes:
+      - "sail-mysql:/var/lib/mysql"
+      - "./backend/vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh"
+    networks:
+      - sail
+    healthcheck:
+      test:
+        - CMD
+        - mysqladmin
+        - ping
+        - "-pdb12345"
+      retries: 3
+      timeout: 5s
+
+  mailpit:
+    image: "axllent/mailpit:latest"
+    ports:
+      - "51025:1025"
+      - "58025:8025"
+    networks:
+      - sail
+
+  phpmyadmin:
+    image: "phpmyadmin/phpmyadmin"
+    ports:
+      - "51081:80"
+    environment:
+      PMA_USER: "dbuser"
+      PMA_PASSWORD: "db12345"
+      PMA_HOST: mysql
+    networks:
+      - sail
+
+networks:
+  sail:
+    driver: bridge
+volumes:
+  sail-mysql:
+    driver: local

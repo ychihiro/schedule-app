@@ -1,0 +1,26 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.idea
+.vscode
+*.sublime-workspace
+*.sublime-project
+
+# MacOS
+*.DS_Store
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Composer files
+composer.phar
+
+# AWS credentials and config files (if applicable)
+.aws
+
+# Node modules
+node_modules
