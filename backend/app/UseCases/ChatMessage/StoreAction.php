@@ -9,6 +9,8 @@ class StoreAction
     public function __invoke(string $content): void
     {
         // TODO: メッセージを保存する
+
+        // TODO: Observer パターンで実装する
         event(new CreateChatMessageEvent([
             'id' => 1,
             'content' => $content,

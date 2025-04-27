@@ -9,6 +9,6 @@ class ChatMessageController extends Controller
 {
     public function store(StoreRequest $request, StoreAction $action): void
     {
-        $action($request->content);
+        $action($request->message);
     }
 }

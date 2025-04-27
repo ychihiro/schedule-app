@@ -15,15 +15,15 @@ export const useBroadcast = () => {
 
     Pusher.logToConsole = true;
     const pusher = new Pusher(PUSHER_KEY, { cluster: "ap3" });
-    const channel = pusher.subscribe("chat");
+    const channel = pusher.subscribe("chat-room-channel");
 
-    channel.bind("chat-message", (data: { message: Message }) => {
+    channel.bind("create-chat-message", (data: { message: Message }) => {
       setMessage(data.message);
     });
 
     return () => {
-      channel.unbind("chat-message");
-      pusher.unsubscribe("chat");
+      channel.unbind("create-chat-message");
+      pusher.unsubscribe("chat-room-channel");
     };
   }, []);
 

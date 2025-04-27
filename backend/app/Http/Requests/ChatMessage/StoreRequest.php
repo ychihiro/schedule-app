@@ -9,7 +9,7 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'content' => 'required|string|max:255',
+            'message' => 'required|string|max:255',
         ];
     }
 }

@@ -23,12 +23,12 @@ class CreateChatMessageEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new Channel('chat'),
+            new Channel('chat-room-channel'),
         ];
     }
 
     public function broadcastAs()
     {
-        return 'chat-message';
+        return 'create-chat-message';
     }
 }
