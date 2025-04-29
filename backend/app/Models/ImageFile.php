@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ImageFile extends Model
 {
@@ -14,4 +15,9 @@ class ImageFile extends Model
     'file_name',
     'storage_key',
   ];
+
+  public function users(): BelongsTo
+  {
+    return $this->belongsTo(User::class);
+  }
 }
