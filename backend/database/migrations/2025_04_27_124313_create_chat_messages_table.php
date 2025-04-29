@@ -10,13 +10,11 @@ return new class extends Migration
   {
     Schema::create('chat_messages', function (Blueprint $table) {
       $table->id();
-      $table->unsignedBigInteger('user_id')->comment('ユーザーID');
-      $table->unsignedBigInteger('chat_room_id')->comment('チャットルームID');
+      $table->foreignId('user_id')->constrained()->cascadeOnDelete()->comment('ユーザーID');
+      $table->foreignId('chat_room_id')->constrained()->cascadeOnDelete()->comment('チャットルームID');
       $table->text('message')->comment('メッセージ');
+      $table->softDeletesDatetime();
       $table->datetimes();
-
-      $table->foreign('user_id')->references('id')->on('users');
-      $table->foreign('chat_room_id')->references('id')->on('chat_rooms');
     });
   }
 

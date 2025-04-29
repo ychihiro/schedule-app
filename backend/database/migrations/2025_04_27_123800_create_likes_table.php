@@ -10,9 +10,14 @@ return new class extends Migration
   {
     Schema::create('likes', function (Blueprint $table) {
       $table->id();
-      $table->unsignedBigInteger('sender_id')->comment('いいねしたユーザー');
-      $table->unsignedBigInteger('receiver_id')->comment('いいねされたユーザー');
+      $table->unsignedBigInteger('sender_id')->cascadeOnDelete()->comment('いいねしたユーザー');
+      $table->unsignedBigInteger('receiver_id')->cascadeOnDelete()->comment('いいねされたユーザー');
       $table->datetimes();
+
+      $table->unique([
+        'sender_id',
+        'receiver_id'
+      ]);
 
       $table->foreign('sender_id')->references('id')->on('users');
       $table->foreign('receiver_id')->references('id')->on('users');

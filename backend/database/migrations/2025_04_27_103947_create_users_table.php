@@ -10,7 +10,8 @@ return new class extends Migration
   {
     Schema::create('users', function (Blueprint $table) {
       $table->id();
-      $table->string('name')->comment('ユーザー名');
+      $table->string('first_name')->comment('名');
+      $table->string('last_name')->comment('姓');
       $table->string('email')->unique()->comment('メールアドレス');
       $table->dateTime('email_verified_at')->nullable();
       $table->string('phone_number')->comment('電話番号');
@@ -22,6 +23,7 @@ return new class extends Migration
       $table->integer('prefecture_id')->comment('都道府県');
       $table->text('introduction')->comment('自己紹介文');
       $table->rememberToken();
+      $table->softDeletesDatetime();
       $table->datetimes();
     });
   }
