@@ -14,7 +14,7 @@ class CreateChatMessageEvent implements ShouldBroadcast
 
     public $message;
 
-    // TODO: Message モデルを受け取る型を定義する
+    // TODO: $messageの型をMessage Modelとして定義する
     public function __construct(array $message)
     {
         $this->message = $message;
