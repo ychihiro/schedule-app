@@ -18,9 +18,9 @@ return new class extends Migration
       $table->string('password')->comment('パスワード');
       $table->string('nickname')->comment('ニックネーム');
       $table->integer('age')->comment('年齢');
-      $table->tinyInteger('gender')->comment('性別 0:男性 1:女性 2:その他');
+      $table->tinyInteger('gender')->comment('性別');
       $table->date('birthday')->comment('生年月日');
-      $table->integer('prefecture_id')->comment('都道府県');
+      $table->integer('prefecture_id')->comment('都道府県ID');
       $table->text('introduction')->comment('自己紹介文');
       $table->rememberToken();
       $table->softDeletesDatetime();
