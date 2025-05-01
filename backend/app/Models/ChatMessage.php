@@ -16,12 +16,12 @@ class ChatMessage extends Model
     'message',
   ];
 
-  public function users(): BelongsTo
+  public function user(): BelongsTo
   {
     return $this->belongsTo(User::class);
   }
 
-  public function chat_rooms(): BelongsTo
+  public function chatRoom(): BelongsTo
   {
     return $this->belongsTo(ChatRoom::class);
   }

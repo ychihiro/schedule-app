@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Like extends Model
@@ -15,13 +16,13 @@ class Like extends Model
     'receiver_id',
   ];
 
-  public function sendUsers(): HasMany
+  public function sender(): BelongsTo
   {
-    return $this->hasMany(User::class, 'sender_id');
+    return $this->belongsTo(User::class, 'sender_id');
   }
 
-  public function receiverUsers(): HasMany
+  public function receiver(): BelongsTo
   {
-    return $this->hasMany(User::class, 'receiver_id');
+    return $this->belongsTo(User::class, 'receiver_id');
   }
 }
